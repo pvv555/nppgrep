@@ -81,7 +81,7 @@ class MyForm(Frame):
     def initUI(self):
         
         data_frame = Frame(self.master, relief=RAISED, borderwidth=1)
-        data_frame.pack(fill=BOTH, expand=True, padx=5, pady=2)
+        data_frame.pack(fill=BOTH, expand=True, padx=5, pady=2, ipady=3)
 
         data_frame.columnconfigure(0, weight=1, minsize=30)
         data_frame.columnconfigure(1, weight=1, minsize=30)
@@ -182,6 +182,7 @@ class MyForm(Frame):
         fname = Entry(data_frame, width=50, bd=2, textvariable=self.fname_val)
         fname.grid(row=5, column=0, columnspan=2, sticky=N+S+W+E, padx=10)
         fname.bind('<Button-3>',rClicker, add='')
+        
 # ---------------------- Location -----------------------------
         loc_frame = LabelFrame(data_frame, text='Location')
         loc_frame.columnconfigure(0, weight=1, minsize=50)
@@ -370,15 +371,11 @@ def main():
     debug = (appConfig.get("Common", "debug") == 'Y')
     
     root = Tk()
-    size = (300,390)
-    xpos = (root.winfo_screenwidth() - size[0])/2
-    ypos = (root.winfo_screenheight() - size[1])/2
-    root.geometry("{}x{}+{}+{}".format(*(size + (xpos, ypos))))
-    root.resizable(height=False, width=True)
-
+    
     root.title("Find content")
     root.attributes('-toolwindow', 1)
     root.attributes('-topmost', 1)
+    root.resizable(height=False, width=True)
 
     dlgData = formDataStorage()
     dlgData.srchString = editor.getSelText()
@@ -389,6 +386,8 @@ def main():
     
     app = MyForm(master=root, formData=dlgData, applyAction=doRequest)
     app.focus_force()
+    
+    root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
     
     root.mainloop()
     

@@ -70,22 +70,22 @@ class MyForm(Frame):
     def initUI(self):
         
         data_frame = Frame(self.master, relief=RAISED, borderwidth=1)
-        data_frame.pack(fill=BOTH, expand=True, padx=5, pady=2)
-
+        data_frame.pack(fill=BOTH, expand=True, padx=5, pady=2, ipady=10)
+        
         data_frame.columnconfigure(0, weight=1, minsize=30)
         data_frame.columnconfigure(1, weight=1, minsize=30)
         
 # ---------------------- File Name Pattern --------------------------                             
         fname_lb = Label(data_frame, text='File Name Pattern:')
-        fname_lb.grid(row=4, column=0, sticky=W, padx=10)
+        fname_lb.grid(row=0, column=0, sticky=W, padx=10)
 
         self.fname_val = StringVar()
         self.fname_val.set(self.formData.fname_pat)
         
         fname = Entry(data_frame, width=50, bd=2, textvariable=self.fname_val)
-        fname.grid(row=5, column=0, columnspan=2, sticky=N+S+W+E, padx=10)
+        fname.grid(row=1, column=0, columnspan=2, sticky=N+S+W+E, padx=10)
         fname.bind('<Button-3>',rClicker, add='')
-  
+        
 # Close button        
         self.closeButton = Button(self.master, text="Close", width=10, bd=2, 
                                   command=self.closeWin)
@@ -178,15 +178,11 @@ def main():
     debug = (appConfig.get("Common", "debug") == 'Y')
     
     root = Tk()
-    size = (300,100)
-    xpos = (root.winfo_screenwidth() - size[0])/2
-    ypos = (root.winfo_screenheight() - size[1])/2
-    root.geometry("{}x{}+{}+{}".format(*(size + (xpos, ypos))))
-    root.resizable(height=False, width=True)
 
     root.title("Open File")
     root.attributes('-toolwindow', 1)
     root.attributes('-topmost', 1)
+    root.resizable(height=False, width=True)
 
     dlgData = formDataStorage()
     dlgData.fname_pat = editor.getSelText()
@@ -197,6 +193,8 @@ def main():
     
     app = MyForm(master=root, formData=dlgData, applyAction=None)
     app.focus_force()
+    
+    root.eval('tk::PlaceWindow %s center' % root.winfo_pathname(root.winfo_id()))
     
     root.mainloop()
     
