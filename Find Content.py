@@ -370,8 +370,7 @@ def main():
     appConfig.read(configFile)
     debug = (appConfig.get("Common", "debug") == 'Y')
     
-    root = Tk()
-    
+    root = Tk() 
     root.title("Find content")
     root.attributes('-toolwindow', 1)
     root.attributes('-topmost', 1)

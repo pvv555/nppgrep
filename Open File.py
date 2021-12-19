@@ -178,7 +178,6 @@ def main():
     debug = (appConfig.get("Common", "debug") == 'Y')
     
     root = Tk()
-
     root.title("Open File")
     root.attributes('-toolwindow', 1)
     root.attributes('-topmost', 1)

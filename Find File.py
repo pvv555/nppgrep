@@ -277,7 +277,6 @@ def main():
     debug = (appConfig.get("Common", "debug") == 'Y')
     
     root = Tk()
-
     root.title("Find File")
     root.attributes('-toolwindow', 1)
     root.attributes('-topmost', 1)
