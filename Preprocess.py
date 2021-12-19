@@ -9,7 +9,7 @@ appConfig = None
 debug = None
 
 request = "ACTION=PREPROCESS_FILE;FNAME_PATTERN={};THE_END.\n"
-         
+
 def doRequest(show=True):
   global appConfig
   
